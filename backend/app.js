@@ -10,6 +10,8 @@ const port = 8080;
 // Directory to serve frontend files from
 const basedir = __dirname + "/../frontend/" 
 
+// With reference to: https://stackoverflow.com/a/26354478 
+
 const server = http.createServer((req, res) => {
     // Identify the filename from the url (escaping with 'normalize')
     let uri = url.parse(req.url).pathname;
