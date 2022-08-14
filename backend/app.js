@@ -13,6 +13,23 @@ const basedir = __dirname + "/../frontend/"
 // With reference to: https://stackoverflow.com/a/26354478 
 
 const server = http.createServer((req, res) => {
+    // Split code off into api and web server
+
+    // API
+    if(req.url.startsWith("/api/")) {
+        api(req, res);
+    }
+    // Serve Files
+    else {
+        webserver(req, res);
+    }
+});
+
+server.listen(port, hostname, () => {
+    console.log(`Server running at http://${hostname}:${port}/`);
+});
+
+function webserver(req, res) {
     // Identify the filename from the url (escaping with 'normalize')
     let uri = url.parse(req.url).pathname;
     let filepath = path.join(basedir, path.normalize(uri));
@@ -66,8 +83,18 @@ const server = http.createServer((req, res) => {
         res.write(data, "binary");
         res.end();
     });
-});
+}
 
-server.listen(port, hostname, () => {
-    console.log(`Server running at http://${hostname}:${port}/`);
-});
+function api(req, res) {
+    // set the request route
+    if (req.url === "/api/" && req.method === "GET") {
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.write("API Test!");
+        res.end();
+    }
+    // no route present
+    else {
+        res.writeHead(404, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ message: "Route not found" }));
+    }
+}
