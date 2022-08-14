@@ -1,0 +1,51 @@
+/* General styles */
+body {
+    /* Make body take up entire screen */
+    margin: 0px;
+    padding: 0px;
+    height: 100vh;
+}
+
+/* Search container */ 
+.search-container {
+    margin: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-container input[type=search] {
+    padding: 0.5rem;
+    outline: none;
+    border: none;
+
+    outline: black solid 0.15rem;
+    border-radius: 2rem;
+    opacity: 0.25;
+
+    max-width: 50%;
+    flex: auto;
+}
+
+.search-container input[type=search]:focus {
+    opacity: 1;
+}
+
+/* Weather table container */
+.weather-table-container {
+    display: flex;
+    justify-content: center;
+}
+
+.weather-table {
+    flex: auto;
+    max-width: 50%;
+
+    table-layout: fixed;
+    border-spacing: 0 1rem;
+}
+
+.weather-table td{
+    text-align: center;
+    vertical-align: middle;
+}
