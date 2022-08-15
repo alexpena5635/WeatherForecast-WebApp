@@ -4,12 +4,10 @@ let areas = [];
 
 
 let input = document.getElementById("searchInput");
-if(input) {
-    input.addEventListener("input", () => getResults(areas));
-}
-else{
-    console.error("input null");
-}
+
+input.addEventListener("input", () => getResults(areas));
+
+
 
 async function getResults(areas) {
     let input = document.getElementById("searchInput");
@@ -30,23 +28,14 @@ async function getResults(areas) {
     areas = parseLocations(locationResponse);
 
     updateResults(areas);
-}
+    
+    let container = document.getElementById("searchResults");
+    let results = container.getElementsByTagName("li");
 
-function updateResults(areas) {
-    let ul = document.getElementById("searchResults");
-
-    ul.innerHTML = "";
-    let list = "";
-
-    for(const area of areas) {
-        // console.log(area);
-        list += "<li id=\"" + area['id'] + "\"> " + area['city'] + ", " 
-            + area['region'] + ", " + area["country"] + "</li>";
+    for(let i=0; i < results.length; i++) {
+        results[i].addEventListener("click", (event) => getForecast(event.target));
     }
-
-    ul.innerHTML = list;
 }
-
 
 function parseLocations(locationResponse){
     // console.log(JSON.parse(jsonList));
@@ -74,4 +63,37 @@ function parseLocations(locationResponse){
     return areas;
 }   
 
+function updateResults(areas) {
+    let ul = document.getElementById("searchResults");
+
+    ul.innerHTML = "";
+    let list = "";
+
+    for(const area of areas) {
+        // console.log(area);
+        list 
+            += "<li id=\"" + area['id'] + "\"> " + area['city'] + ", " + area['region'] 
+            + ", " + area["country"] + "</li>";
+    }
+
+    ul.innerHTML = list;
+}
+
+async function getForecast(li) {
+    let input = document.getElementById("searchInput");
+    input.value = li.innerText;
+    console.log(li.id);
+
+    let forecast = "";
+
+    try {
+        forecast = await new MyWeatherAPI().getForecast(li.id);
+    }
+    catch (e) {
+        console.error(e);
+        return;
+    }
+
+    
+}
 
