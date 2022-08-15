@@ -1,7 +1,10 @@
 const fs    = require("fs");
 var axios   = require("axios").default;
 
-const tokenFile = __dirname + "/auth.txt";
+// const authFilePath = "/auth.txt";
+const authFilePath = "/auth2.txt"; // Backup api key with different acount for morerequests 
+
+const tokenFile = __dirname + authFilePath;
 
 // Set the default url for axios to the weather api
 let token = fs.readFileSync(tokenFile, "utf-8");
