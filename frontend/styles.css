@@ -10,8 +10,11 @@ body {
 .search-container {
     margin: 1rem;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    position: relative;
 }
 
 .search-container input[type=search] {
@@ -23,13 +26,52 @@ body {
     border-radius: 2rem;
     opacity: 0.25;
 
-    max-width: 50%;
-    flex: auto;
+    /* max-width: 50%; */
+    /* flex: auto; */
+    /* width: auto; */
 }
 
 .search-container input[type=search]:focus {
     opacity: 1;
 }
+
+.search-container ul {
+    position: absolute;
+    top: 100%;
+    z-index: 1;
+
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.5s ease;
+    display: none;
+
+    overflow: hidden;
+    overflow-y: scroll;
+    max-height: 15rem;
+    max-width: 20rem;
+
+    list-style-type: none;
+}
+
+.search-container input[type=search]:focus + ul {
+    visibility: visible;
+    opacity: 1;
+    display: block;
+
+    outline: black solid 0.1rem;
+    background: white;
+}
+
+.search-container li {
+    padding: 1rem 0;
+}
+
+.search-container li:hover {
+    background: gray;
+    cursor: pointer;
+}
+
+
 
 /* Weather table container */
 .weather-table-container {

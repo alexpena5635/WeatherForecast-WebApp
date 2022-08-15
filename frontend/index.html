@@ -5,12 +5,15 @@
     <meta name="viewport" content="width=device-width">
     <title>7 Day Forecast WebApp</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="scripts.js"></script>
+    <script src="https://unpkg.com/axios@0.26.1/dist/axios.min.js"></script>
+    <script type="module" src="scripts.js"></script>
+
 </head>
 
 <body>
     <div class="search-container">
-        <input type=search maxlength="50" placeholder="Search...">
+        <input type="search" maxlength="50" id="searchInput" placeholder="Search...">
+        <ul class="search-results-list" id="searchResults">
     </div>
 
     <div class="weather-table-container">
