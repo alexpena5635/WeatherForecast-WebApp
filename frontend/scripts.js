@@ -98,6 +98,9 @@ async function getForecast(li) {
         return;
     }
 
+
+    console.log(forecastResponse);
+
     let forecasts = parseForecast(forecastResponse);
 
     // console.log(forecasts);
@@ -114,17 +117,24 @@ function parseForecast(forecastResponse){
     // console.log(dailyForecastsJson);
 
     for(let i = 0; i < dailyForecastsJson.length; i++) {
-        // console.log(dailyForecastsJson[i]);
-        // let day = dailyForecastsJson[i]["day"];
         let date = dailyForecastsJson[i]["date"];
         let temp = dailyForecastsJson[i]["maxTemp"];
         let weatherState = dailyForecastsJson[i]["symbolPhrase"];
         let weatherSymbol = dailyForecastsJson[i]["symbol"];
         let windSpeed = dailyForecastsJson[i]["maxWindSpeed"];
         let windDir = dailyForecastsJson[i]["windDir"];
+
+        
+        let day = new Date(date).toLocaleDateString("en-US", 
+            { 
+                weekday: 'long',
+                timeZone: 'UTC'
+            }
+        );
+        // console.log(day);
         
         dailyForecasts.push({
-            // 'day': day, 
+            'day': day, 
             'date': date,
             'temp': temp,
             'weatherState': weatherState,
@@ -141,13 +151,13 @@ function updateForecast(forecasts) {
     let table = document.getElementById("weatherTable");
 
     let results = "<tr>" 
-                + "<td>" + "Day" + "</td>" 
-                + "<td>" + "Date" + "</td>" 
-                + "<td>" + "Temperature" + "</td>" 
-                + "<td>" + "WeatherState" + "</td>" 
-                + "<td>" + "WeatherSymbol" + "</td>" 
-                + "<td>" + "WindSpeed" + "</td>" 
-                + "<td>" + "WindDir" + "</td>" 
+                + "<th>" + "Day" + "</th>" 
+                + "<th>" + "Date" + "</th>" 
+                + "<th>" + "Temperature" + "</th>" 
+                + "<th>" + "WeatherState" + "</th>" 
+                + "<th>" + "WeatherSymbol" + "</th>" 
+                + "<th>" + "WindSpeed" + "</th>" 
+                + "<th>" + "WindDir" + "</th>" 
             + "</tr>";
 
    
@@ -156,16 +166,31 @@ function updateForecast(forecasts) {
     for(const day of forecasts) {
         results 
             += "<tr>" 
-                + "<td>" + "Day" + "</td>" 
+                + "<td>" + day['day'] + "</td>" 
                 + "<td>" + day['date'] + "</td>" 
-                + "<td>" + day['temp'] + "</td>" 
+                + "<td>" + day['temp'] + "&degC" + "</td>" 
                 + "<td>" + day['weatherState'] + "</td>" 
                 + "<td>" + day['weatherSymbol'] + "</td>" 
-                + "<td>" + day['windSpeed'] + "</td>" 
-                + "<td>" + day['windDir'] + "</td>" 
+                + "<td>" + day['windSpeed'] + " m/s" + "</td>" 
+                + "<td>" + windDegToCardinal(day['windDir']) + "</td>" 
             + "</tr>";
     }
 
     table.innerHTML = results;
-    console.log(results);
+    // console.log(results);
+}
+
+function windDegToCardinal(degrees) {
+    // Referenced by: https://stackoverflow.com/a/7490772
+    // Divide by 22.5 because 350deg/16 directions == 22.5deg/direction
+    let value = parseInt(degrees / 22.5 + .5);
+
+    let dirs = [
+        "N","NNE","NE", "NW","NNW",
+        "ENE","E","ESE", 
+        "SE", "SSE","S","SSW","SW",
+        "WSW","W","WNW",
+    ]
+
+    return dirs[(value % 16)]
 }
