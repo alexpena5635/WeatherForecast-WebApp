@@ -12,7 +12,6 @@ input.addEventListener("input", () => {
 });
 
 
-
 async function getResults(areas) {
     let input = document.getElementById("searchInput");
     let filter = input.value;
@@ -99,13 +98,13 @@ async function getForecast(li) {
     }
 
 
-    console.log(forecastResponse);
+    // console.log(forecastResponse);
 
     let forecasts = parseForecast(forecastResponse);
 
     // console.log(forecasts);
 
-    updateForecast(forecasts);
+    updateForecast(forecasts, input.value);
 }
 
 function parseForecast(forecastResponse){
@@ -147,20 +146,10 @@ function parseForecast(forecastResponse){
     return dailyForecasts;
 } 
 
-function updateForecast(forecasts) {
+function updateForecast(forecasts, location) {
     let table = document.getElementById("weatherTable");
+    let results = "";
 
-    let results = "<tr>" 
-                + "<th>" + "Day" + "</th>" 
-                + "<th>" + "Date" + "</th>" 
-                + "<th>" + "Temperature" + "</th>" 
-                + "<th>" + "WeatherState" + "</th>" 
-                + "<th>" + "WeatherSymbol" + "</th>" 
-                + "<th>" + "WindSpeed" + "</th>" 
-                + "<th>" + "WindDir" + "</th>" 
-            + "</tr>";
-
-   
     table.innerHTML = results;
 
     for(const day of forecasts) {
@@ -170,13 +159,17 @@ function updateForecast(forecasts) {
                 + "<td>" + day['date'] + "</td>" 
                 + "<td>" + day['temp'] + "&degC" + "</td>" 
                 + "<td>" + day['weatherState'] + "</td>" 
-                + "<td>" + day['weatherSymbol'] + "</td>" 
+                + "<td>" 
+                    + "<img src=\"https://developer.foreca.com/static/images/symbols/" 
+                        + day['weatherSymbol'] + ".png\"/>"
+                + "</td>" 
                 + "<td>" + day['windSpeed'] + " m/s" + "</td>" 
                 + "<td>" + windDegToCardinal(day['windDir']) + "</td>" 
             + "</tr>";
     }
 
     table.innerHTML = results;
+    updateHeader(location);
     // console.log(results);
 }
 
@@ -193,4 +186,9 @@ function windDegToCardinal(degrees) {
     ]
 
     return dirs[(value % 16)]
+}
+
+function updateHeader(value) {
+    let header = document.getElementById("forecastHeader");
+    header.innerText = "7 Day Forecast: " + value;
 }
