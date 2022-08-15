@@ -36,9 +36,10 @@ function webserver(req, res) {
 
     // Dict of file extensions corresponding to mime types
     let mimeExtension = {
-        '.html': "text/html",
-        '.css' : "text/css",
-        '.js' : "text/javascript",  // More filetypes ?
+        '.html' : "text/html",
+        '.css'  : "text/css",
+        '.js'   : "text/javascript",
+        '.mjs'  : "text/javascript" // More filetypes ?
     };
 
     // Add index.html to path if it is a directory
@@ -79,7 +80,10 @@ function webserver(req, res) {
 
         // Construct the HTTP response, and send the file
         let headerMime = mimeExtension[path.extname(filepath)] || "text/plain";
-        res.writeHead(200, headerMime);
+        console.log(headerMime);
+        res.writeHead(200, {
+            "Content-Type": headerMime
+        });
         res.write(data, "binary");
         res.end();
     });
