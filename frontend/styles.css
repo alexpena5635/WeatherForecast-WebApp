@@ -4,11 +4,16 @@ body {
     margin: 0px;
     padding: 0px;
     height: 100vh;
+
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 h1 {
-    /* Make body take up entire screen */
-    font-size: 3vh;
+    font-size: 2rem;
+}
+
+table, ul, li {
+    font-size: 1rem;
 }
 
 /* Search container */ 
@@ -22,6 +27,11 @@ h1 {
     position: relative;
 }
 
+.search-container h1 {
+    text-align: center;
+    vertical-align: middle;
+}
+
 .search-container input[type=search] {
     padding: 0.5rem;
     outline: none;
@@ -32,7 +42,7 @@ h1 {
     opacity: 0.25;
 
     max-width: 50%;
-    min-width: 25%;
+    min-width: 40%;
 }
 
 .search-container input[type=search]:focus {
@@ -84,19 +94,50 @@ h1 {
     align-items: center;
 }
 
-.weather-table {
+.weather-table-container .weather-table {
     flex: auto;
-    max-width: 50%;
+    max-width: 75%;
 
     /* table-layout: fixed; */
-    border-spacing: 0 1rem;
+    border-collapse: collapse;
 }
+
+.weather-table-container .weather-table td {
+    text-align: left;
+    padding: 0.5rem;
+}
+
 
 .weather-table td{
     text-align: center;
     vertical-align: middle;
+    width: fit-content;
 }
 
 .weather-table td > img{
    max-width: 25%;
+   max-height: 25%;
+
+   min-width: 20%;
 }
+
+@media screen and (max-width: 1200px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    table, ul, li {
+        font-size: 0.9rem;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    h1 {
+        font-size: 1rem;
+    }
+
+    table, ul, li {
+        font-size: 0.7rem;
+    }
+}
+
