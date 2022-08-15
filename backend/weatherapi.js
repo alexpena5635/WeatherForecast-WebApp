@@ -1,7 +1,7 @@
 const fs    = require("fs");
 var axios   = require("axios").default;
 
-const tokenFile = "./auth.txt";
+const tokenFile = __dirname + "/auth.txt";
 
 // Set the default url for axios to the weather api
 let token = fs.readFileSync(tokenFile, "utf-8");
