@@ -123,18 +123,21 @@ function parseForecast(forecastResponse){
         let windSpeed = dailyForecastsJson[i]["maxWindSpeed"];
         let windDir = dailyForecastsJson[i]["windDir"];
 
-        
-        let day = new Date(date).toLocaleDateString("en-US", 
+        let dateObject = new Date(date);
+
+        let day = dateObject.toLocaleDateString("en-US", 
             { 
                 weekday: 'long',
                 timeZone: 'UTC'
             }
         );
-        // console.log(day);
+
+        let month = dateObject.getUTCMonth()+1;
+        let dateString = "" + month + "/" +  dateObject.getUTCDate();
         
         dailyForecasts.push({
             'day': day, 
-            'date': date,
+            'date': dateString,
             'temp': temp,
             'weatherState': weatherState,
             'weatherSymbol': weatherSymbol,

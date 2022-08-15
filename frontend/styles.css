@@ -8,7 +8,7 @@ body {
 
 h1 {
     /* Make body take up entire screen */
-    font-size: 2rem;
+    font-size: 3vh;
 }
 
 /* Search container */ 
