@@ -1,8 +1,8 @@
 const fs    = require("fs");
 var axios   = require("axios").default;
 
-// const authFilePath = "/auth.txt";
-const authFilePath = "/auth2.txt"; // Backup api key with different acount for morerequests 
+// API Token path
+const authFilePath = "<path_to_your_api_token>";
 
 const tokenFile = __dirname + authFilePath;
 
