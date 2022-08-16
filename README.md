@@ -43,7 +43,6 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
 * npm
   ```sh
   npm install npm@latest -g
@@ -53,26 +52,30 @@ This is an example of how to list things you need to use the software and how to
 
 _Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 
-1. Get a free API Key at [https://example.com](https://example.com)
+1. Get a free API Key at [https://developer.foreca.com/](https://developer.foreca.com/)
 2. Clone the repo
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/alexpena5635/WeatherForecast-WebApp.git
    ```
-3. Install NPM packages
+3. Install NPM packages in the `/backend/` directory.
    ```sh
    npm install
    ```
-4. Enter your API in `config.js`
+4. Save your api key to a file, and read it into in `/backend/weatherapi.js`
    ```js
-   const API_KEY = 'ENTER YOUR API';
+    const authFilePath = "/auth.txt"; 
+    const tokenFile = __dirname + authFilePath;
    ```
+5. Start the server
+   ```sh
+   node app.js
+   ```
+6. Navigate to `http://localhost:8080` to run the WebApp
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: http://www.linkedin.com/in/alex-pe%C3%B1a-944095241
-[product-screenshot]: images/screenshot.png
