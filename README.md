@@ -59,9 +59,9 @@ To get a local copy up and running follow these simple example steps.
    ```sh
    npm install
    ```
-4. Save your api key to a file, and read it into in `/backend/weatherapi.js`
+4. Save your api key to a file, and setup the path in `/backend/weatherapi.js`
    ```js
-    const authFilePath = "/auth.txt"; 
+    const authFilePath = "/<your_api_token>.txt"; 
     const tokenFile = __dirname + authFilePath;
    ```
 5. Start the server
