@@ -79,7 +79,8 @@ table, ul, li {
     padding: 1rem 0;
 }
 
-.search-container li:hover {
+.search-container li:hover,
+.search-container li.active {
     background: gray;
     cursor: pointer;
 }
@@ -119,6 +120,7 @@ table, ul, li {
    max-height: 25%;
 
    min-width: 20%;
+   min-height: 20%;
 }
 
 @media screen and (max-width: 1200px) {
@@ -139,5 +141,14 @@ table, ul, li {
     table, ul, li {
         font-size: 0.7rem;
     }
-}
+} 
 
+@media screen and (max-width: 550px) {
+    h1 {
+        font-size: 0.9rem;
+    }
+
+    table, ul, li {
+        font-size: 0.7rem;
+    }
+} 

@@ -11,6 +11,8 @@ input.addEventListener("input", () => {
     timeout = setTimeout(() => getResults(areas), 500);
 });
 
+input.addEventListener("keydown", (event) => keyhandler(event));
+
 
 async function getResults(areas) {
     let input = document.getElementById("searchInput");
@@ -164,7 +166,9 @@ function updateForecast(forecasts, location) {
                 + "<td>" + day['weatherState'] + "</td>" 
                 + "<td>" 
                     + "<img src=\"https://developer.foreca.com/static/images/symbols/" 
-                        + day['weatherSymbol'] + ".png\"/>"
+                        + day['weatherSymbol'] + ".png\""
+                        + "alt=\"" + day['weatherSymbol'] 
+                        + "-" + day['weatherState'] + "\"/>"
                 + "</td>" 
                 + "<td>" + day['windSpeed'] + " m/s" + "</td>" 
                 + "<td>" + windDegToCardinal(day['windDir']) + "</td>" 
@@ -194,4 +198,53 @@ function windDegToCardinal(degrees) {
 function updateHeader(value) {
     let header = document.getElementById("forecastHeader");
     header.innerText = "7 Day Forecast: " + value;
+}
+
+let activeIndex = 0;
+
+function keyhandler(event) {
+    // 13, 38, 40
+    if(![13,38,40].includes(event.keyCode)) {
+        return;
+    }
+
+    console.log(event);
+    let container = document.getElementById("searchResults");
+    let results = container.getElementsByTagName("li");
+
+    let dict = {};
+
+    for(let i=0; i < results.length; i++) {
+        dict[i] = results[i].id;
+    }
+
+    console.log(dict);
+    if(activeIndex == 0) {
+        console.log("in here");
+        document.getElementById(dict[activeIndex]).classList.add("active");
+        document.getElementById(dict[activeIndex]).scrollIntoView();
+    }
+
+    switch(event.keyCode) {
+        case 38:
+            if(activeIndex > 0) {
+                document.getElementById(dict[activeIndex]).classList.remove("active");
+                activeIndex -= 1;
+                document.getElementById(dict[activeIndex]).classList.add("active");
+                document.getElementById(dict[activeIndex]).scrollIntoView();
+            }
+            return;
+        case 40:
+            if(activeIndex < results.length-1) {
+                document.getElementById(dict[activeIndex]).classList.remove("active");
+                activeIndex += 1;
+                document.getElementById(dict[activeIndex]).classList.add("active");
+                document.getElementById(dict[activeIndex]).scrollIntoView();
+            }
+            return;
+        case 13:
+            document.getElementById("searchInput").blur();
+            getForecast(document.getElementById(dict[activeIndex]));
+            return;
+    }
 }
