@@ -13,7 +13,7 @@ const basedir = __dirname + "/../frontend/";
 
 const server = http.createServer((req, res) => {
     
-    res.setHeader("Access-Control-Allow-Origin", "localhost:8080"); // Security issue
+    res.setHeader("Access-Control-Allow-Origin", "localhost:8080");
     res.setHeader("Access-Control-Allow-Methods", "OPTIONS, POST, GET");
     res.setHeader("Access-Control-Max-Age", 2592000); // 30 days
 

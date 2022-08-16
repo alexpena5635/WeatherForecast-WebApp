@@ -3,7 +3,6 @@ var axios   = require("axios").default;
 
 // API Token path
 const authFilePath = "<path_to_your_api_token>";
-
 const tokenFile = __dirname + authFilePath;
 
 // Set the default url for axios to the weather api
